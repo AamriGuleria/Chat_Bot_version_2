@@ -73,12 +73,12 @@ app.post('/weather',async(req,res)=>{
 })
 app.post('/',async(req,res)=>{
     try {
-        const api_key = req.body.api_key; // Assuming the API key is sent in the request body
+        const api_key = req.body.key; 
         if (!api_key) {
             return res.send({ response: "fail" });
         }
         
-        const apiKey = api_key;
+        const apiKey = req.body.key;
         const url = 'https://api.cohere.com/v1/check-api-key';
         const options = {
             method: 'POST',
@@ -106,33 +106,6 @@ app.post('/',async(req,res)=>{
         res.send({ response: "fail" });
     }
 })
-// app.use('/image',limiter)
-// app.post("/image",async(req,res)=>{
-//     console.log(req.body.text,"what the server received")
-//     const configuration=new Configuration(
-//         {
-//             apiKey:api_key
-//         }
-//     )
-//     const openai=new OpenAIApi(configuration);
-//     try {
-//         const response = await openai.createImage({
-//             prompt: req.body.text,
-//             n: 1, // Number of images to generate
-//             size: "512x512", // Image size
-//             response_format: "b64_json" // Base64 encoded string format
-//         });
-
-//         const imageData = response.data.data[0].b64_json;
-//         fs.writeFileSync("generated_image.png", imageData, "base64");
-//         console.log("Image generated successfully!");
-//         res.status(200).json({ message: "Image generated successfully!" });
-//     } catch (error) {
-//         console.error("Error generating image:", error.response);
-//         res.status(500).json({ error: "Failed to generate image" });
-//     }
-
-// })
 app.use('/main',limiter)
 app.post("/main",async(req,res)=>{ 
     const cont=req.body.content;

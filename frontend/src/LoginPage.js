@@ -44,17 +44,6 @@ const LoginPage = () => {
     <div className="login_page">
       <center>
         <div className={resp===""?"noon":"ani"}>
-          {/* <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div> */}
-          {/* <p className="loading">{resp}</p> */}
         </div>
         <form className="login_form" onSubmit={e => { Verify(e, key, name) }}>
           <h4>Login</h4>
