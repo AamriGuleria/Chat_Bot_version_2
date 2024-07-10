@@ -1,4 +1,5 @@
-// import { Configuration, OpenAIApi } from "openai";
+import dotenv from 'dotenv';
+dotenv.config({ path: 'C:/Users/asus/Desktop/chat-gpt/backend/.env' });
 import {CohereClient} from 'cohere-ai'
 import  fetch from 'node-fetch';
 import express from "express";
@@ -14,14 +15,9 @@ const app=express();
 const port=8000;
 app.use(bodyParser.json());
 app.use(cors());
-const limiter=rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Max number of requests
-    message: "Too many requests from this IP, please try again later" 
-})
 app.post('/weather',async(req,res)=>{
     let url="";
-    const apikey="2cd28bb8fb0edeb6c8211e3697b9f5d3";
+    const apikey=process.env.OPENWEATHERMAP_API_KEY;
     if(req.body.lat!==undefined && req.body.lon!==undefined){
         url=`https://api.openweathermap.org/data/2.5/weather?lat=${req.body.lat}&lon=${req.body.lon}&appid=${apikey}&units=metric`
         https.get(url,function(response){
@@ -106,7 +102,6 @@ app.post('/',async(req,res)=>{
         res.send({ response: "fail" });
     }
 })
-app.use('/main',limiter)
 app.post("/main",async(req,res)=>{ 
     const cont=req.body.content;
     const resp = await cohere.chat({
