@@ -12,9 +12,10 @@ var api_key="";
 let cohere=null;
 var error="";
 const app=express(); 
-const port=8000;
+const port = process.env.PORT || 8000;
 app.use(bodyParser.json());
 app.use(cors());
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 app.post('/weather',async(req,res)=>{
     let url="";
     const apikey=process.env.OPENWEATHERMAP_API_KEY;

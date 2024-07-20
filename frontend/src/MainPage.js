@@ -1,7 +1,6 @@
 import React,{ useEffect, useState,useSearchParams } from 'react'
 import {Link} from "react-router-dom"
 import './index.css'
-import Speech from "./Speech"
 import {useSpeechRecognition} from 'react-speech-kit';
 const MainPage = (props) => {
     const [msg, setmsg] = useState("");
