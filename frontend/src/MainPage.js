@@ -2,12 +2,14 @@ import React,{ useEffect, useState,useSearchParams } from 'react'
 import {Link} from "react-router-dom"
 import './index.css'
 import {useSpeechRecognition} from 'react-speech-kit';
-const MainPage = (props) => {
-    const [msg, setmsg] = useState("");
-    const [chats, setchats] = useState([]);
-    const [type, settype] = useState(false);
-    const searchParams = new URLSearchParams(document.location.search)
+const MainPage = () => {
+    const [msg, setmsg] = useState("");//holds the chats temporarily
+    const [chats, setchats] = useState([]);//store all the final chats
+    const [type, settype] = useState(false);//type helps to disable and able the typing section according to situation
+    const searchParams = new URLSearchParams(document.location.search).get('name')
+    console.log(searchParams)//holds the name of the user
     const [value,setValue] =useState("")
+    //speech recognition
     const {listen,listening,stop,transcript,resetTranscript}=useSpeechRecognition({
       onResult:(result)=>{
         if(result!==""){
@@ -15,47 +17,40 @@ const MainPage = (props) => {
         setmsg(result)
       }}
     })
-    var ans="";
     const chat = async (e,msg) => {
       e.preventDefault();
-      if(msg===""){
-        console.log("empty")
-      }
-      else{
-      settype(true)
-      let msgs=chats;
-      msgs.push({role:searchParams.get('name'),content:msg})
-      setchats(msgs);
+      if(msg!==""){
+      settype(true)//request is in progress or the chat interface is in a loading state.
+      let msgs=chats;//previous complete chats 
+      msgs.push({role:searchParams,content:msg})// push the current user query only
+      setchats(msgs);//update the chats section
      fetch("http://localhost:8000/main", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "content":`${msg}`,
+          "content":`${msg}`,//send the user's query
         }),
       })
-      .then((response) => response.json())
+      .then((response) => response.json())//converting the response in the json format
         .then((data) => {
           console.log(data)
-          ans=ans+data.content;
           if(data.content!==""){
-            msgs.push({role:"Bot",content:ans})
+            msgs.push({role:"Bot",content:data.content})//add the bot's response to the chats
             setchats(msgs);
-            settype(false);
+            settype(false);//indicates the processing has been completed
           }
           else{
             msgs.push({role:"Bot",content:"sorry coudn't get it."})
-            setchats(msgs);
-            settype(false);
+            setchats(msgs);//add the bot's response to the chats
+            settype(false);//indicates the processing has been completed
           }
           if(data.code==401){
             setInterval(()=>{
               window.location.href=`http://localhost:3000`;
             },1000)
-            
           }
-          ans=""
         })
         .catch((error) => {
           setchats([...chats,{role:"Bot",content:"Could not receive the correct data.Please try login again"}]);
@@ -63,11 +58,10 @@ const MainPage = (props) => {
         });
         
       setmsg("");
-      localStorage.setItem("items",JSON.stringify(chats));
+      localStorage.setItem("items",JSON.stringify(chats));//storing all the chats in local storage
       console.log(localStorage.getItem("items"));
       }
       }
-    // }
     return (
       <>
       <div className="App">
@@ -79,7 +73,6 @@ const MainPage = (props) => {
             <Link to="/" className="back"><p>Login</p></Link>
             <Link to="/about" className="about"><p>About</p></Link>
             <Link to="/weather" className="weather"><p><img src="/cloudy.png" height="30px" width="30px"></img></p></Link>
-            {/* <Link to="/image" className="image-gen"><p>Image</p></Link> */}
           </div>
         </div>
             <>
@@ -103,11 +96,9 @@ const MainPage = (props) => {
           </div>
               </>
               <div className={type?"hide":"form"}>
-              {/* <p color="black">{value}</p> */}
               <div id="listen">
               <form id='list'onSubmit={e => {chat(e, msg)}}>
                 <input type="text" className="inp-msg" name="msg" value={msg} placeholder="type your message..." onChange={e => setmsg(e.target.value)} disabled={listening}/>
-                {/* <button onClick={listening?stop:listen}>{listening?"stop":"Listen"}</button>   */}
               </form>
               <form id='l'onSubmit={e => {chat(e, msg)}}>
               <button onClick={listening?stop:listen} >{listening?"stop":"Listen"}</button> 

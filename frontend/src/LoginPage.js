@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import { Route, Routes, useNavigate } from 'react-router-dom';
-import MainPage from "./MainPage"
 import "./index.css"
 const LoginPage = () => {
   const [key, setkey] = useState("")
@@ -8,14 +6,12 @@ const LoginPage = () => {
   const [resp, setresp] = useState("")
   useEffect(() => {
     if (resp === "success") {
-      setresp("Loading...")
       setInterval(() => {
         window.location.href = `http://localhost:3000/main?name=${name}`;
       }, 1000)
     }
     else if (resp === "fail") {
       alert("Enter Correct Details")
-      setresp("enter correct details")
     }
   }, [resp])
   const Verify = async (e, key, name) => {

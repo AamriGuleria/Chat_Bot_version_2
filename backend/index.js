@@ -7,7 +7,6 @@ import rateLimit from "express-rate-limit"
 import bodyParser from "body-parser";
 import cors from "cors";
 import https from "https"
-import fs from "fs"
 var api_key="";
 let cohere=null;
 var error="";
@@ -16,79 +15,66 @@ const port = process.env.PORT || 8000;
 app.use(bodyParser.json());
 app.use(cors());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
-app.post('/weather',async(req,res)=>{
+app.post('/byLocation',async(req,res)=>{
     let url="";
     const apikey=process.env.OPENWEATHERMAP_API_KEY;
-    if(req.body.lat!==undefined && req.body.lon!==undefined){
+    console.log(req.body.loc)
+
+    if(req.body.loc!==undefined && req.body.loc!==null && req.body.lat!==undefined && req.body.lat!==null){
         url=`https://api.openweathermap.org/data/2.5/weather?lat=${req.body.lat}&lon=${req.body.lon}&appid=${apikey}&units=metric`
-        https.get(url,function(response){
-            response.on("data",function(data){
-                const weatherdata=JSON.parse(data);
-                console.log(weatherdata)
-                const name=weatherdata.name
-                const wind_speed=weatherdata.wind.speed;
-                const visibility=weatherdata.visibility;
-                const humidity=weatherdata.main.humidity;
-                const pressure=weatherdata.main.pressure;
-                const temp_max=weatherdata.main.temp_max;
-                const temp_min=weatherdata.main.temp_min;
-                const feels_like=weatherdata.main.feels_like;
-                const temp=weatherdata.main.temp;
-                const icon=weatherdata.weather[0].icon;
-                const imgurl="http://openweathermap.org/img/wn/"+icon+"@2x.png"
-                const weatherdesc=weatherdata.weather[0].description
-                res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
-            })
-        })
-    }
-    else if(req.body.content!==undefined){
-        const query=req.body.content;
-        url="https://api.openweathermap.org/data/2.5/weather?q="+{query}+"&appid="+{apikey}+"&units=metric.";
-        https.get(url,function(response){
-            response.on("data",function(data){
-                const weatherdata=JSON.parse(data);
-                console.log(weatherdata)
-                const name=weatherdata.name
-                const wind_speed=weatherdata.wind.speed;
-                const visibility=weatherdata.visibility;
-                const humidity=weatherdata.main.humidity;
-                const pressure=weatherdata.main.pressure;
-                const temp_max=weatherdata.main.temp_max;
-                const temp_min=weatherdata.main.temp_min;
-                const feels_like=weatherdata.main.feels_like;
-                const temp=weatherdata.main.temp;
-                const icon=weatherdata.weather[0].icon;
-                const imgurl="http://openweathermap.org/img/wn/"+icon+"@2x.png"
-                const weatherdesc=weatherdata.weather[0].description
-                res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
-            })
-        })
     }
     else{
-        res.send({error:"No weather parameters provided"})
+        url=`https://api.openweathermap.org/data/2.5/weather?q=${req.body.loc}&appid=${apikey}&units=metric`
     }
+        https.get(url,function(response){
+            response.on("data",function(data){
+                const weatherdata=JSON.parse(data);
+                if(weatherdata.message==='city not found'){
+                    res.send({msg:"city not found"})
+                }
+                else{
+                const name=weatherdata.name
+                const wind_speed=weatherdata.wind.speed;
+                const visibility=weatherdata.visibility;
+                const humidity=weatherdata.main.humidity;
+                const pressure=weatherdata.main.pressure;
+                const temp_max=weatherdata.main.temp_max;
+                const temp_min=weatherdata.main.temp_min;
+                const feels_like=weatherdata.main.feels_like;
+                const temp=weatherdata.main.temp;
+                const icon=weatherdata.weather[0].icon;
+                const imgurl="http://openweathermap.org/img/wn/"+icon+"@2x.png"
+                const weatherdesc=weatherdata.weather[0].description
+                res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
+                }
+            })
+        })
+    // }
+    // else{
+    //     res.send({error:"No weather parameters provided"})
+    // }
 })
 app.post('/',async(req,res)=>{
     try {
         const api_key = req.body.key; 
         if (!api_key) {
             return res.send({ response: "fail" });
-        }
+        }//checking the key beforehand if it is not null or undefined
         
-        const apiKey = req.body.key;
         const url = 'https://api.cohere.com/v1/check-api-key';
         const options = {
             method: 'POST',
             headers: {
                 accept: 'application/json',
-                Authorization: `Bearer ${apiKey}`
+                Authorization: `Bearer ${api_key}`
             }
         };
         
         const fetchResponse = await fetch(url, options);
         const json = await fetchResponse.json();
         console.log(json)
-        if (fetchResponse.ok && json.valid) {
+        console.log(fetchResponse)
+        if (json.valid) {
             if (!cohere) {
                 cohere = new CohereClient({
                     token: api_key,

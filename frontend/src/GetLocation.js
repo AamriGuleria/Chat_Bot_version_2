@@ -3,7 +3,7 @@ import WeatherPage from './WeatherPage';
 import "./weather.css"
 const GetLocation = ({data}) => {
   useEffect(()=>{
-    console.log(data)
+    console.log("the data",data)
   },[data])
   return (
     <div className="weather-container">
