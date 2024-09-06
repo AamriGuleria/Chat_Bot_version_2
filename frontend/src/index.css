@@ -116,9 +116,6 @@ html{
     height:35px;
     border-radius: 50%;
 }
-/* .App-2{
-  background-color: black;
-} */
 .image-content{
   background-color: black;
 }
@@ -165,10 +162,6 @@ html{
     width:100%;
     position: relative;
     top:0;
-    /* animation-name: s;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    transition: 2s; */
 }
 .heading{
     font-size:22px;
@@ -251,9 +244,6 @@ margin-top: 10px;
     animation-delay: 0s;
     animation-iteration-count: infinite;
 }
-.login_form:hover{
-    /* box-shadow: 2px 2px 3px 2px rgba(255, 255, 255, 0.462); */
-}
 .w-data{
   color:black;
 }
@@ -298,8 +288,6 @@ margin-top: 10px;
     font-family:  'Bowlby One SC', cursive;
 }
 .ani {
-    /* z-index: 20; */
-    /* position: absolute; */
     height: 100px;
     display: flex;
     justify-content: center;
@@ -325,33 +313,6 @@ margin-top: 10px;
     animation: wave 1s linear infinite;
     border-radius: 20px;
   }
-  .wave:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  .wave:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-  .wave:nth-child(4) {
-    animation-delay: 0.3s;
-  }
-  .wave:nth-child(5) {
-    animation-delay: 0.4s;
-  }
-  .wave:nth-child(6) {
-    animation-delay: 0.5s;
-  }
-  .wave:nth-child(7) {
-    animation-delay: 0.6s;
-  }
-  .wave:nth-child(8) {
-    animation-delay: 0.7s;
-  }
-  .wave:nth-child(9) {
-    animation-delay: 0.8s;
-  }
-  .wave:nth-child(10) {
-    animation-delay: 0.9s;
-  }
   
   @keyframes wave {
     0% {
@@ -369,9 +330,6 @@ margin-top: 10px;
     color:black;
     border:none;
 }
-
-
-
 .loading{
     color:black;
 }
