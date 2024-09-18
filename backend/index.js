@@ -3,7 +3,7 @@ dotenv.config({ path: 'C:/Users/asus/Desktop/chat-gpt/backend/.env' });
 import {CohereClient} from 'cohere-ai'
 import  fetch from 'node-fetch';
 import express from "express";
-import rateLimit from "express-rate-limit"
+// import rateLimit from "express-rate-limit"
 import bodyParser from "body-parser";
 import cors from "cors";
 import https from "https"
@@ -14,7 +14,7 @@ const app=express();
 const port = process.env.PORT || 8000;
 app.use(bodyParser.json());
 app.use(cors());
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
+// app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 app.post('/byLocation',async(req,res)=>{
     let url="";
     const apikey=process.env.OPENWEATHERMAP_API_KEY;
