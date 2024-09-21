@@ -39,7 +39,7 @@ const MainPage = () => {
       msgs.push({role:searchParams,content:msg})// push the current user query only
       setchats(msgs);//update the chats section
 
-     fetch("http://localhost:8000/main", {
+     fetch("http://localhost:10000/main", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

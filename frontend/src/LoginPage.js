@@ -16,7 +16,7 @@ const LoginPage = () => {
   }, [resp])
   const Verify = async (e, key, name) => {
     e.preventDefault();
-    fetch("http://localhost:8000/", {
+    fetch("http://localhost:10000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
