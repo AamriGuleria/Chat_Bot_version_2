@@ -30,7 +30,7 @@ const WeatherPage = () => {
   useEffect(() => {
     if (location) {
   console.log("inside correct loop")
-    fetch("http://localhost:8000/byLocation", {
+    fetch("http://localhost:10000/byLocation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
