@@ -7,7 +7,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (resp === "success") {
       setInterval(() => {
-        window.location.href = `http://localhost:3000/main?name=${name}`;
+        window.location.href = `http://localhost:3000/main?name=${name}&key=${key}`;
       }, 1000)
     }
     else if (resp === "fail") {

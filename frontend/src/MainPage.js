@@ -2,11 +2,14 @@ import React,{ useEffect, useState,useSearchParams } from 'react'
 import {Link} from "react-router-dom"
 import './index.css'
 import {useSpeechRecognition} from 'react-speech-kit';
+import { getDatabase, ref, onValue, remove ,set} from 'firebase/database';
+import {db} from './FirebaseInt'
 const MainPage = () => {
     const [msg, setmsg] = useState("");//holds the chats temporarily
     const [chats, setchats] = useState([]);//store all the final chats
     const [type, settype] = useState(false);//type helps to disable and able the typing section according to situation
     const searchParams = new URLSearchParams(document.location.search).get('name')
+    const searchKey = new URLSearchParams(document.location.search).get('key')
     console.log(searchParams)//holds the name of the user
     const [value,setValue] =useState("")
     //speech recognition
@@ -17,13 +20,25 @@ const MainPage = () => {
         setmsg(result)
       }}
     })
+    // Fetch existing chats when component mounts
+    useEffect(() => {
+      const chatsRef = ref(db, `chats/${searchKey}`); // Use the imported db here
+      onValue(chatsRef, (d) => {
+          const data = d.val();
+          if (data) {
+              setchats(Object.values(data)); // Convert object to array
+          }
+      });
+  }, [searchKey]);
+
     const chat = async (e,msg) => {
       e.preventDefault();
       if(msg!==""){
       settype(true)//request is in progress or the chat interface is in a loading state.
-      let msgs=chats;//previous complete chats 
+      let msgs=[...chats];//previous complete chats 
       msgs.push({role:searchParams,content:msg})// push the current user query only
       setchats(msgs);//update the chats section
+
      fetch("http://localhost:8000/main", {
         method: "POST",
         headers: {
@@ -34,34 +49,49 @@ const MainPage = () => {
         }),
       })
       .then((response) => response.json())//converting the response in the json format
-        .then((data) => {
+        .then(async (data) => {
           console.log(data)
           if(data.content!==""){
             msgs.push({role:"Bot",content:data.content})//add the bot's response to the chats
             setchats(msgs);
+      // Save the updated chat to Firebase
+      const chatsRef = ref(db, `chats/${searchKey}`); // Reference to the specific chat
+      await set(chatsRef,msgs); // Set the entire chats array to Firebase
+      
             settype(false);//indicates the processing has been completed
           }
           else{
             msgs.push({role:"Bot",content:"sorry coudn't get it."})
             setchats(msgs);//add the bot's response to the chats
+                  // Save the updated chat to Firebase
+      const chatsRef = ref(db, `chats/${searchKey}`); // Reference to the specific chat
+      await set(chatsRef, msgs); // Set the entire chats array to Firebase
+      
             settype(false);//indicates the processing has been completed
           }
-          if(data.code==401){
-            setInterval(()=>{
-              window.location.href=`http://localhost:3000`;
-            },1000)
-          }
+          // if(data.code==401){
+          //   setInterval(()=>{
+          //     window.location.href=`http://localhost:3000`;
+          //   },1000)
+          // }
         })
         .catch((error) => {
           setchats([...chats,{role:"Bot",content:"Could not receive the correct data.Please try login again"}]);
+          setchats(msgs);//add the bot's response to the chats
+                  // Save the updated chat to Firebase
           settype(true)
         });
         
       setmsg("");
-      localStorage.setItem("items",JSON.stringify(chats));//storing all the chats in local storage
-      console.log(localStorage.getItem("items"));
+      // localStorage.setItem("items",JSON.stringify(chats));//storing all the chats in local storage
+      // console.log(localStorage.getItem("items"));
       }
       }
+      const clearChat = async () => {
+        setchats([]);
+        const chatsRef = ref(db, `chats/${searchKey}`);
+        await remove(chatsRef);
+    };
     return (
       <>
       <div className="App">
@@ -71,7 +101,7 @@ const MainPage = () => {
           </div>
           <div className='contents'>
             <Link to="/" className="back"><p>Login</p></Link>
-            <Link to="/about" className="about"><p>About</p></Link>
+            <p className="about" onClick={clearChat}><p>CLEAR</p></p>
             <Link to="/weather" className="weather"><p><img src="/cloudy.png" height="30px" width="30px"></img></p></Link>
           </div>
         </div>

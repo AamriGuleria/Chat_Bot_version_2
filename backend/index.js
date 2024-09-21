@@ -11,7 +11,7 @@ var api_key="";
 let cohere=null;
 var error="";
 const app=express(); 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 10000;
 app.use(bodyParser.json());
 app.use(cors());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
@@ -49,10 +49,6 @@ app.post('/byLocation',async(req,res)=>{
                 }
             })
         })
-    // }
-    // else{
-    //     res.send({error:"No weather parameters provided"})
-    // }
 })
 app.post('/',async(req,res)=>{
     try {
@@ -116,6 +112,6 @@ app.post("/main",async(req,res)=>{
       }  
 })
 
-app.listen(port,()=>{
+app.listen(port, '0.0.0.0',()=>{
     console.log(`listening on port ${port}`)
 })
