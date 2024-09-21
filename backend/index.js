@@ -50,6 +50,9 @@ app.post('/byLocation',async(req,res)=>{
             })
         })
 })
+app.get('/',(req,res)=>{
+    res.send("Welcome To Smart Weather Chatbot")
+})
 app.post('/',async(req,res)=>{
     console.log("Welcome")
     try {
