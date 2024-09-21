@@ -39,7 +39,7 @@ const MainPage = () => {
       msgs.push({role:searchParams,content:msg})// push the current user query only
       setchats(msgs);//update the chats section
 
-     fetch("https://chat-bot-version-backend-7g53.onrender.com//main", {
+     fetch("https://chat-bot-version-backend-7g53.onrender.com/main", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
