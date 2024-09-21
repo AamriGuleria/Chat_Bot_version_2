@@ -30,7 +30,7 @@ const WeatherPage = () => {
   useEffect(() => {
     if (location) {
   console.log("inside correct loop")
-    fetch("http://localhost:10000/byLocation", {
+    fetch("https://chat-bot-version-backend-7g53.onrender.com//byLocation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

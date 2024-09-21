@@ -7,7 +7,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (resp === "success") {
       setInterval(() => {
-        window.location.href = `http://localhost:3000/main?name=${name}&key=${key}`;
+        window.location.href = `https://chat-bot-version-backend-7g53.onrender.com/main?name=${name}&key=${key}`;
       }, 1000)
     }
     else if (resp === "fail") {
@@ -16,7 +16,7 @@ const LoginPage = () => {
   }, [resp])
   const Verify = async (e, key, name) => {
     e.preventDefault();
-    fetch("http://localhost:10000/", {
+    fetch("https://chat-bot-version-backend-7g53.onrender.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
