@@ -51,6 +51,7 @@ app.post('/byLocation',async(req,res)=>{
         })
 })
 app.post('/',async(req,res)=>{
+    console.log("Welcome")
     try {
         const api_key = req.body.key; 
         if (!api_key) {
