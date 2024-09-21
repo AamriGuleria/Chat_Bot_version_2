@@ -1,7 +1,7 @@
 import React,{ useEffect, useState,useSearchParams } from 'react'
 import {Link} from "react-router-dom"
 import './index.css'
-// import {useSpeechRecognition} from 'react-speech-kit';
+import {useSpeechRecognition} from 'react-speech-kit';
 import { getDatabase, ref, onValue, remove ,set} from 'firebase/database';
 import {db} from './FirebaseInt'
 const MainPage = () => {
@@ -13,13 +13,13 @@ const MainPage = () => {
     console.log(searchParams)//holds the name of the user
     const [value,setValue] =useState("")
     //speech recognition
-    // const {listen,listening,stop,transcript,resetTranscript}=useSpeechRecognition({
-    //   onResult:(result)=>{
-    //     if(result!==""){
-    //     setValue(result);
-    //     setmsg(result)
-    //   }}
-    // })
+    const {listen,listening,stop,transcript,resetTranscript}=useSpeechRecognition({
+      onResult:(result)=>{
+        if(result!==""){
+        setValue(result);
+        setmsg(result)
+      }}
+    })
     // Fetch existing chats when component mounts
     useEffect(() => {
       const chatsRef = ref(db, `chats/${searchKey}`); // Use the imported db here
@@ -131,7 +131,7 @@ const MainPage = () => {
                 <input type="text" className="inp-msg" name="msg" value={msg} placeholder="type your message..." onChange={e => setmsg(e.target.value)} disabled={listening}/>
               </form>
               <form id='l'onSubmit={e => {chat(e, msg)}}>
-              {/* <button onClick={listening?stop:listen} >{listening?"stop":"Listen"}</button>  */}
+              <button onClick={listening?stop:listen} >{listening?"stop":"Listen"}</button> 
               </form>
               </div>
             </div>
