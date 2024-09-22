@@ -20,7 +20,7 @@ app.post('/byLocation',async(req,res)=>{
     const apikey=process.env.OPENWEATHERMAP_API_KEY;
     console.log(req.body.loc)
 
-    if(req.body.loc!==undefined && req.body.loc!==null && req.body.lat!==undefined && req.body.lat!==null){
+    if(req.body.lat!==undefined && req.body.lon!==null && req.body.lat!==undefined && req.body.lon!==null){
         url=`https://api.openweathermap.org/data/2.5/weather?lat=${req.body.lat}&lon=${req.body.lon}&appid=${apikey}&units=metric`
     }
     else{
