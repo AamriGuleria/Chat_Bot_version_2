@@ -34,7 +34,7 @@ app.post('/byLocation',async(req,res)=>{
                 }
                 else{
                 const name=weatherdata.name
-                const wind_speed=weatherdata.wind.speed;
+                // const wind_speed=weatherdata.wind.speed;
                 const visibility=weatherdata.visibility;
                 const humidity=weatherdata.main.humidity;
                 const pressure=weatherdata.main.pressure;
@@ -45,8 +45,7 @@ app.post('/byLocation',async(req,res)=>{
                 const icon=weatherdata.weather[0].icon;
                 const imgurl="http://openweathermap.org/img/wn/"+icon+"@2x.png"
                 const weatherdesc=weatherdata.weather[0].description
-                // res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
-                res.send(weatherdata)
+                res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
                 }
             })
         })
