@@ -21,9 +21,9 @@ app.post('/byLocation',async(req,res)=>{
     console.log(req.body.loc)
 
     if (req.body.lat && req.body.lon && req.body.lat !== "null" && req.body.lon !== "null" && req.body.lat !== "" && req.body.lon !== "") {
-        url = `https://api.openweathermap.org/data/2.5/weather?lat=${req.body.lat}&lon=${req.body.lon}&appid=2cd28bb8fb0edeb6c8211e3697b9f5d3&units=metric`;
+        url = `https://api.openweathermap.org/data/2.5/weather?lat=${req.body.lat}&lon=${req.body.lon}&appid=${apikey}&units=metric`;
     } else if (req.body.loc && req.body.loc !== "null" && req.body.loc !== "") {
-        url = `https://api.openweathermap.org/data/2.5/weather?q=${req.body.loc}&appid=2cd28bb8fb0edeb6c8211e3697b9f5d3&units=metric`;
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${req.body.loc}&appid=${apikey}&units=metric`;
     } else {
         // Handle case where neither lat/lon nor loc is provided
         return res.status(400).json({ error: "Location or latitude/longitude must be provided" });
@@ -35,20 +35,20 @@ app.post('/byLocation',async(req,res)=>{
                     res.send({msg:"city not found"})
                 }
                 else{
-                    res.send(weatherdata)
-                // const name=weatherdata.name
-                // const wind_speed=weatherdata.wind.speed;
-                // const visibility=weatherdata.visibility;
-                // const humidity=weatherdata.main.humidity;
-                // const pressure=weatherdata.main.pressure;
-                // const temp_max=weatherdata.main.temp_max;
-                // const temp_min=weatherdata.main.temp_min;
-                // const feels_like=weatherdata.main.feels_like;
-                // const temp=weatherdata.main.temp;
-                // const icon=weatherdata.weather[0].icon;
-                // const imgurl="http://openweathermap.org/img/wn/"+icon+"@2x.png"
-                // const weatherdesc=weatherdata.weather[0].description
-                // res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
+                    // res.send(weatherdata)
+                const name=weatherdata.name
+                const wind_speed=weatherdata.wind.speed;
+                const visibility=weatherdata.visibility;
+                const humidity=weatherdata.main.humidity;
+                const pressure=weatherdata.main.pressure;
+                const temp_max=weatherdata.main.temp_max;
+                const temp_min=weatherdata.main.temp_min;
+                const feels_like=weatherdata.main.feels_like;
+                const temp=weatherdata.main.temp;
+                const icon=weatherdata.weather[0].icon;
+                const imgurl="http://openweathermap.org/img/wn/"+icon+"@2x.png"
+                const weatherdesc=weatherdata.weather[0].description
+                res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
                 }
             })
         })
