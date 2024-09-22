@@ -45,7 +45,8 @@ app.post('/byLocation',async(req,res)=>{
                 const icon=weatherdata.weather[0].icon;
                 const imgurl="http://openweathermap.org/img/wn/"+icon+"@2x.png"
                 const weatherdesc=weatherdata.weather[0].description
-                res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
+                // res.send({temp:temp,icon:icon,imageurl:imgurl,desc:weatherdesc,name:name,visibility:visibility,wind_speed:wind_speed,humidity:humidity,pressure:pressure,temp_max:temp_max,temp_min:temp_min,feels_like:feels_like})
+                res.send(weatherdata)
                 }
             })
         })
