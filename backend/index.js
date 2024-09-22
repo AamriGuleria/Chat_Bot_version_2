@@ -21,9 +21,9 @@ app.post('/byLocation',async(req,res)=>{
     console.log(req.body.loc)
 
     if (req.body.lat && req.body.lon && req.body.lat !== "null" && req.body.lon !== "null" && req.body.lat !== "" && req.body.lon !== "") {
-        url = `https://api.openweathermap.org/data/2.5/weather?lat=${req.body.lat}&lon=${req.body.lon}&appid=${apikey}&units=metric`;
+        url = `https://api.openweathermap.org/data/2.5/weather?lat=${req.body.lat}&lon=${req.body.lon}&appid=2cd28bb8fb0edeb6c8211e3697b9f5d3&units=metric`;
     } else if (req.body.loc && req.body.loc !== "null" && req.body.loc !== "") {
-        url = `https://api.openweathermap.org/data/2.5/weather?q=${req.body.loc}&appid=${apikey}&units=metric`;
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${req.body.loc}&appid=2cd28bb8fb0edeb6c8211e3697b9f5d3&units=metric`;
     } else {
         // Handle case where neither lat/lon nor loc is provided
         return res.status(400).json({ error: "Location or latitude/longitude must be provided" });
