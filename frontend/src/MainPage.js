@@ -125,6 +125,7 @@ const MainPage = () => {
           </div>
           </div>
               </>
+              <center>
               <div className={type?"hide":"form"}>
               <div id="listen">
               <form id='list'onSubmit={e => {chat(e, msg)}}>
@@ -135,6 +136,7 @@ const MainPage = () => {
               </form>
               </div>
             </div>
+            </center>
       </div>
   </>
     );

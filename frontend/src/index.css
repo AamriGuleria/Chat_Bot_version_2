@@ -242,7 +242,7 @@ margin-top: 10px;
     background-color: transparent;
     color:white;
     /* border:1px solid white; */
-    font-family:  'Bowlby One SC', cursive;
+    font-family:  Montserrat, sans-serif;
     animation-name:sample;
     animation-duration: 3s;
     animation-delay: 0s;
@@ -263,7 +263,7 @@ margin-top: 10px;
     border-radius: 10px;
     background-color: transparent;
     color:white;
-    font-family:  'Bowlby One SC', cursive;
+    font-family:  Montserrat, sans-serif;
     border: 1px solid transparent;
     animation-name:sample;
     animation-duration: 3s;
