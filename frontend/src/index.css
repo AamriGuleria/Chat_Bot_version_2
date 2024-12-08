@@ -197,11 +197,11 @@ font-size: 18px;
 max-height: 35px;
 
 position: fixed;
-bottom: 10px;
+bottom: 2px;
 left: 1%;
 transform: translateX(-1%);
-width: calc(100% - 20px);
-max-width: 600px;
+width: calc(98%);
+/* max-width: 600px; */
 padding: 10px;
 }
 /* #listen button {
