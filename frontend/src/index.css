@@ -188,7 +188,19 @@ position:fixed;
 bottom: 0;
 margin-top: 10px;
 }
-#listen button{
+#listen button {
+  border-radius: 5px;
+  box-shadow: 5px 8px 20px white;
+  color: white;
+  background-color: black;
+  font-size: 18px;
+  max-height: 35px;
+  position: fixed;
+  left: 10px;
+  right: 10px;
+  width: calc(100% - 20px);
+}
+/* #listen button{
   border-radius:5px;
   box-shadow: 5px 8px 20px white;
   right:0;
@@ -198,7 +210,7 @@ margin-top: 10px;
   font-size: 18px;
   max-height:35px;
   position:fixed;
-}
+} */
 .form_and_type{
     padding-top:50px;
     padding-bottom:35px;
@@ -307,10 +319,10 @@ margin-top: 10px;
     flex-wrap:wrap;
   } 
 
-  #listen button{
+  /* #listen button{
     width:100px;
     height:100px;
-  }
+  } */
   .wave {
     width: 5px;
     height: 100px;
