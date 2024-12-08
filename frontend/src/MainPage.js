@@ -2,7 +2,7 @@ import React,{ useEffect, useState,useSearchParams } from 'react'
 import {Link} from "react-router-dom"
 import './index.css'
 // import {useSpeechRecognition} from 'react-speech-kit';
-import { getDatabase, ref, onValue, remove ,set} from 'firebase/database';
+import { ref, onValue, remove ,set } from 'firebase/database';
 import {db} from './FirebaseInt'
 const MainPage = () => {
     const [msg, setmsg] = useState("");//holds the chats temporarily
@@ -20,7 +20,7 @@ const MainPage = () => {
     //     setmsg(result)
     //   }}
     // })
-    // Fetch existing chats when component mounts
+    //On the basis of search key stores in the firebase database
     useEffect(() => {
       const chatsRef = ref(db, `chats/${searchKey}`); // Use the imported db here
       onValue(chatsRef, (d) => {

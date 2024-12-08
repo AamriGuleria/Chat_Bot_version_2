@@ -5,15 +5,17 @@ const LoginPage = () => {
   const [name, setname] = useState("")
   const [resp, setresp] = useState("")
   useEffect(() => {
+    //Respond To User Login
     if (resp === "success") {
       setInterval(() => {
         window.location.href = `https://chat-bot-version-frontend-2.onrender.com/main?name=${name}&key=${key}`;
-      }, 1000)
+      }, 100)
     }
     else if (resp === "fail") {
       alert("Enter Correct Details")
     }
   }, [resp])
+  
   const Verify = async (e, key, name) => {
     e.preventDefault();
     fetch("https://chat-bot-version-backend-7g53.onrender.com/", {
