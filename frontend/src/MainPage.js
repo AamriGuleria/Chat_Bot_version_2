@@ -128,12 +128,14 @@ const MainPage = () => {
               <center>
               <div className={type?"hide":"form"}>
               <div id="listen">
+                <center>
               <form id='list'onSubmit={e => {chat(e, msg)}}>
                 <input type="text" className="inp-msg" name="msg" value={msg} placeholder="type your message..." onChange={e => setmsg(e.target.value)}/>
               </form>
-              <form id='l'onSubmit={e => {chat(e, msg)}}>
+              {/* <form id='l'onSubmit={e => {chat(e, msg)}}> */}
               {/* <button onClick={listening?stop:listen} >{listening?"stop":"Listen"}</button>  */}
-              </form>
+              {/* </form> */}
+              </center>
               </div>
             </div>
             </center>
