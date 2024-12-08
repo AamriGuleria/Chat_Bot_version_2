@@ -29,7 +29,7 @@ const WeatherPage = () => {
   // Fetch weather data based on location
   useEffect(() => {
     if (location) {
-  console.log("inside correct loop")
+  // console.log("inside correct loop")
     fetch("https://chat-bot-version-backend-7g53.onrender.com/byLocation", {
         method: "POST",
         headers: {

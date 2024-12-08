@@ -198,9 +198,9 @@ max-height: 35px;
 
 position: fixed;
 bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-width: calc(100% - 40px);
+left: 1%;
+transform: translateX(-1%);
+width: calc(100% - 20px);
 max-width: 600px;
 padding: 10px;
 }
