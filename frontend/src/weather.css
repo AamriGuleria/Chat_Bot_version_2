@@ -52,6 +52,8 @@
 
 .weather-extra {
     font-family:'Courier New', Courier, monospace;
+    font-weight: 500;
+    font-size:25px;
     text-align: left;
 }
 
