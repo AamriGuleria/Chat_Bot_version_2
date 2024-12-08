@@ -188,7 +188,23 @@ position:fixed;
 bottom: 0;
 margin-top: 10px;
 }
-#listen button {
+#listen{
+border-radius: 5px;
+box-shadow: 5px 8px 20px white;
+color: white;
+background-color: black;
+font-size: 18px;
+max-height: 35px;
+
+position: fixed;
+bottom: 10px;
+left: 50%;
+transform: translateX(-50%);
+width: calc(100% - 40px);
+max-width: 600px;
+padding: 10px;
+}
+/* #listen button {
   border-radius: 5px;
   box-shadow: 5px 8px 20px white;
   color: white;
@@ -201,7 +217,7 @@ margin-top: 10px;
   right: 0;
   margin: 0 10px;
   padding: 10px;
-}
+} */
 /* #listen button{
   border-radius:5px;
   box-shadow: 5px 8px 20px white;
